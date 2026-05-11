@@ -1,0 +1,8 @@
+node_modules
+.git
+.vercel
+*.md
+.env
+.env.*
+_zip_staging
+_deploy_extract

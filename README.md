@@ -96,7 +96,15 @@ To leave the room, click the Leave Room button, which will return you to the aut
 
 ## Deploy (Vercel static site + WebSocket API)
 
-Vercel serves only the files under `public/`; it does **not** run the long-lived Node/WebSocket server in `server.js`. Deploy the API separately (for example [Render](https://render.com/) using `render.yaml`), note its HTTPS URL, then set **`CHAT_WS_URL`** for your Vercel build to the matching **`wss://…`** URL (no trailing slash), for example `wss://chaty-ws.onrender.com`. Redeploy Vercel after changing env vars. The build runs `npm run build`, which writes `public/config.js` from `CHAT_WS_URL`.
+Vercel serves only the files under `public/`; it does **not** run the long-lived Node/WebSocket server in `server.js`. Deploy the API separately (for example [Render](https://render.com/) → **New Blueprint** → connect this GitHub repo → pick `render.yaml`), wait for the web service URL (for example `https://chaty-ws.onrender.com`), then set **`CHAT_WS_URL`** on Vercel to **`wss://`** + that host (no path, no trailing slash).
+
+From this repo on Windows, after the API is live:
+
+```powershell
+.\scripts\redeploy-vercel-with-ws.ps1 -ChatWsUrl "wss://YOUR-SERVICE.onrender.com"
+```
+
+That writes `public/config.js`, saves **`CHAT_WS_URL`** on Vercel for production builds, and runs **`vercel deploy --prod`**. Vercel production for this project: **https://chaty-wheat.vercel.app**
 
 ## Troubleshooting
 - **WebSocket connection error (localhost)**:
