@@ -17,8 +17,8 @@ This is a real-time chat application built using **HTML**, **CSS**, **JavaScript
 First, clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/your-username/chat-app.git
-cd chatapp
+git clone https://github.com/terenamutolder-oss/chaty.git
+cd chaty
 ```
 
 ### 2. Install Dependencies
