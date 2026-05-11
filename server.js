@@ -8,8 +8,8 @@ const port = 3000;
 // File path for saving rooms data
 const roomsFilePath = path.join(__dirname, 'rooms.json');
 
-// Serve static files (your front-end)
-app.use(express.static('public'));
+// Serve static files from project directory (not process.cwd())
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start the HTTP server
 const server = app.listen(port, () => {
