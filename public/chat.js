@@ -1,6 +1,37 @@
-const socket = new WebSocket('ws://localhost:3000');
+function getChatWebSocketUrl() {
+    if (typeof window.__CHAT_WS_URL__ === 'string' && window.__CHAT_WS_URL__.trim()) {
+        return window.__CHAT_WS_URL__.trim();
+    }
+    const meta = document.querySelector('meta[name="chat-ws-url"]');
+    const fromMeta = meta && meta.getAttribute('content');
+    if (fromMeta && fromMeta.trim()) return fromMeta.trim();
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${protocol}//${window.location.host}`;
+}
+
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+
+const wsUrl = getChatWebSocketUrl();
+const socket = new WebSocket(wsUrl);
 let username = '';
 let currentRoom = '';
+
+socket.onopen = () => console.info('WebSocket connected:', wsUrl);
+
+socket.onerror = () => {
+    showPopup(
+        'Cannot connect to chat server. On Vercel, deploy the Node server (e.g. Render) and set CHAT_WS_URL to its wss:// URL.'
+    );
+};
+
+socket.onclose = (ev) => {
+    if (!ev.wasClean) console.warn('WebSocket closed', ev.code, ev.reason);
+};
 
 // Handle messages from the server
 socket.onmessage = (event) => {

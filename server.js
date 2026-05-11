@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = Number(process.env.PORT) || 3000;
 
 // File path for saving rooms data
 const roomsFilePath = path.join(__dirname, 'rooms.json');
@@ -12,7 +12,7 @@ const roomsFilePath = path.join(__dirname, 'rooms.json');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Start the HTTP server
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
     console.log(`Server started on http://localhost:${port}`);
 });
 

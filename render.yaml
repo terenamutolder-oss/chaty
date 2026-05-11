@@ -1,0 +1,12 @@
+# Deploy this repo as a Web Service on Render for WebSockets (Vercel cannot host this Node WS server).
+# After deploy, copy your service URL and set Vercel env CHAT_WS_URL=wss://<your-service>.onrender.com
+services:
+  - type: web
+    name: chaty-ws
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

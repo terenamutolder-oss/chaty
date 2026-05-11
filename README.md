@@ -94,9 +94,16 @@ To leave the room, click the Leave Room button, which will return you to the aut
 - **Backend**: Node.js, Express
 - **Real-time Communication**: WebSocket (ws library)
 
+## Deploy (Vercel static site + WebSocket API)
+
+Vercel serves only the files under `public/`; it does **not** run the long-lived Node/WebSocket server in `server.js`. Deploy the API separately (for example [Render](https://render.com/) using `render.yaml`), note its HTTPS URL, then set **`CHAT_WS_URL`** for your Vercel build to the matching **`wss://…`** URL (no trailing slash), for example `wss://chaty-ws.onrender.com`. Redeploy Vercel after changing env vars. The build runs `npm run build`, which writes `public/config.js` from `CHAT_WS_URL`.
+
 ## Troubleshooting
-- **WebSocket connection error**:
-If you are having trouble connecting to the WebSocket server, make sure that your server is running on http://localhost:3000.
+- **WebSocket connection error (localhost)**:
+Ensure `node server.js` is running and open the app at `http://localhost:3000`. The browser connects with `ws://` to the same host.
+
+- **WebSocket on chaty-*.vercel.app**:
+Set **`CHAT_WS_URL`** in Vercel to your deployed Node server’s **`wss://`** URL (see Deploy section above).
 
 - **Missing dependencies**:
 If you run into any issues with missing dependencies, try running npm install again in the project root.
