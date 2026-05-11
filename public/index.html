@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+    <!-- Authentication Section -->
+    <div id="authSection">
+        <h2>Welcome to the Chat App</h2>
+        <input type="text" id="username" placeholder="Enter your username" required />
+        <select id="roomList">
+            <option value="">Select a room</option> <!-- Default option -->
+        </select>
+        <div class="middle">
+            <button onclick="joinRoom()">Join Room</button>
+            <button onclick="showCreateRoomPopup()">Create Room</button>
+        </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chatSection">
+        <div id="currentRoom">Room: Not Joined</div>
+        <div>
+            <strong>Users in the Room:</strong>
+            <ul id="userList"></ul>
+        </div>
+        <div id="chatWindow"></div>
+        <input type="text" id="messageInput" placeholder="Type a message..." onkeydown="checkEnter(event)">
+        <div class="middle">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="leaveRoom()">Leave Room</button>
+        </div>
+    </div>
+
+    <!-- Create Room Popup Modal -->
+    <div id="createRoomPopup" class="popup-modal">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closeCreateRoomPopup()">×</span>
+            <h3>Create a New Room</h3>
+            <input type="text" id="createRoomInput" placeholder="Enter room name">
+            <div class="middle">
+                <button onclick="createRoom()">Create Room</button>
+                <button onclick="closeCreateRoomPopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Popup Modal -->
+    <div id="popup" class="popup-modal">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">×</span>
+            <p id="popupMessage"></p>
+        </div>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>
